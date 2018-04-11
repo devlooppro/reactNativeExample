@@ -12,11 +12,9 @@ const Routers = () => <Router>
       <Scene key="login"
              component={loginScene}
              title=""
-             initial
              hideNavBar
       />
-    </Stack>
-    <Stack key="area">
+
       <Scene key="welcome"
              component={welcomeScene}
              title=""
@@ -26,6 +24,7 @@ const Routers = () => <Router>
              component={listScene}
              title=""
              hideNavBar
+             initial
       />
       <Scene key="item"
              component={itemScene}

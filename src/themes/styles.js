@@ -6,6 +6,28 @@ const defaultFontSize = 10;
 
 export const placeholderColor= "";
 
+export const cafeListStyle = StyleSheet.create({
+  cafeWrap:{
+    margin: 5,
+    padding:5,
+    backgroundColor:"#fff",
+    shadowColor: "#333",
+    shadowOffset: {width: 0,height: 3},
+    shadowOpacity: 0.6,
+    flexDirection:'row'
+  },
+  imageWrap:{
+    paddingRight:5
+  },
+  image:{
+    width:100,
+    height:100
+  },
+  title:{
+    fontSize:18
+  }
+});
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
