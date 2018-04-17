@@ -13,7 +13,7 @@ class Input extends Component {
         <View style={styles.iconWrapper}>
           <Icon name={props.icon} size={20} color="#fcfcfd" style={styles.inputIcon}/>
         </View>
-        <TextInput placeholder={props.placeholder} placeholderTextColor="#fcfcfd"/>
+        <TextInput {...props} style={styles.textInput} placeholderTextColor="#fcfcfd"/>
       </View>
     )
   }

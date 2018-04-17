@@ -1,53 +1,60 @@
-import { TouchableOpacity,ScrollView, View, Text, Image} from "react-native";
-import React, { Component } from "react";
+import {TouchableOpacity, ScrollView, View, Text, Image} from "react-native";
+import React, {Component} from "react";
 import Layout from "../components/layout"
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 
-import { cafeListStyle }  from "../themes/styles";
-
-import { getCafes } from "../actions/cafeActions";
+import Loader from "../components/loader";
+import {cafeListStyle} from "../themes/styles";
+import {getCafes} from "../actions/cafeActions";
 
 class listScene extends Component {
 
-  constructor(){
+  constructor() {
     super();
-    this.state ={cafes:[]}
+    this.state = {cafes: [], loading: false}
   }
 
-  componentWillMount(){
-    getCafes().then(cafes=>{
-      this.setState({ cafes })
-    })
-      .catch(error=>{
+  componentWillMount() {
+
+    this.setState({loading: true});
+    getCafes({'_sort[rating]': 'ASC'})
+      .then(cafes => {
+        this.setState({cafes})
+      })
+      .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        this.setState({loading: false});
       })
   }
 
-  itemPress(index){
-    Actions.item({index})
+  itemPress(id) {
+    Actions.item({id})
   }
 
-  renderCafes(){
+  renderCafes() {
     return this.state.cafes.map(cafe => (
-      <TouchableOpacity style={cafeListStyle.cafeWrap} key={cafe.id}>
-        <View style={cafeListStyle.imageWrap}>
-          <Image style={cafeListStyle.image}
-                 source={ cafe.image } />
-        </View>
-        <View>
-          <Text style={cafeListStyle.title}>{cafe.name}</Text>
-          <Text>{cafe.description}</Text>
-        </View>
+        <TouchableOpacity onPress={this.itemPress.bind(this, cafe.id)} style={cafeListStyle.cafeWrap} key={cafe.id}>
+          <View style={cafeListStyle.imageWrap}>
+            <Image style={cafeListStyle.image}
+                   source={cafe.image}/>
+          </View>
+          <View>
+            <Text style={cafeListStyle.title}>{cafe.name}</Text>
+            <Text>{cafe.description}</Text>
+          </View>
 
-      </TouchableOpacity>
+        </TouchableOpacity>
       )
     );
   }
 
-  render(){
+  render() {
     return (
       <Layout>
         <ScrollView>
+          {this.state.loading ? <Loader/> : null}
           {this.renderCafes()}
         </ScrollView>
       </Layout>

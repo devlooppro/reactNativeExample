@@ -6,6 +6,34 @@ const defaultFontSize = 10;
 
 export const placeholderColor= "";
 
+export const generalStyle = StyleSheet.create({
+  loading:{
+    marginTop:20,
+    alignSelf:'center',
+    fontSize:18,
+    color:"#fff"
+  }
+});
+
+export const cafeItemStyle = StyleSheet.create({
+  mainImage:{
+    width:"100%",
+    height:250
+  },
+  title:{
+    color:"#ecf0f1",
+    fontSize:20
+  },
+  titleLine:{
+    padding:5,
+    flexDirection:'row',
+    justifyContent:'space-between'
+  },
+  rating:{
+    flexDirection:'row'
+  }
+
+});
 export const cafeListStyle = StyleSheet.create({
   cafeWrap:{
     margin: 5,
@@ -57,7 +85,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 40,
-    backgroundColor: "#8fd67a",
+    backgroundColor: "#d35400",
     padding: 25,
     marginLeft: 30,
     marginRight: 30,
@@ -85,7 +113,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15
   },
-  inputIcon: {},
+  textInput: {
+    flex:1
+  },
   iconWrapper: {
     width: 60,
     alignItems: 'center',
@@ -117,7 +147,12 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent: 'space-around'
   },
-
+  signUpLink:{
+    alignSelf: 'center',
+    color: '#3498db',
+    fontSize: 18,
+    marginTop: 10
+  }
 });
 
 export default styles;
