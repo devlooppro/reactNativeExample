@@ -4,6 +4,7 @@ import {Actions} from 'react-native-router-flux';
 import styles from "../themes/styles";
 import Input from "../components/input";
 import Button from "../components/button";
+import Loader from "../components/loader";
 import {signUp} from "../actions"
 
 class App extends Component {
@@ -66,7 +67,7 @@ class App extends Component {
           {this.state.loading ? <Loader/> : this.renderForm()}
         </ScrollView>
         <View style={styles.navigation}>
-          <Button text="LOGIN" click={this.loginButtonPress.bind(this)}/>
+          <Button text="Sign up" click={this.loginButtonPress.bind(this)}/>
         </View>
       </KeyboardAvoidingView>
     );

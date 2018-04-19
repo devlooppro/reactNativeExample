@@ -2,6 +2,7 @@ import axios from 'axios';
 import {AsyncStorage} from 'react-native'
 import {apiUrl} from "../config/constants"
 import {Actions} from 'react-native-router-flux';
+import firebase from "../config/firebase";
 
 export const signIn = ({email, password}) => {
 
@@ -12,30 +13,14 @@ export const signIn = ({email, password}) => {
     return Promise.reject('enter password')
   }
 
-  return axios.post(`${apiUrl}/api/session`, {email, password})
+  return firebase.auth()
+    .signInWithEmailAndPassword(email, password).then(()=>{
+      const curUser = firebase.auth().currentUser;
+      const ref = firebase.database().ref(`users/${curUser.uid}`)
+        ref.on('value', function (snapshot) {
+          console.log(snapshot.val());
+        });
 
-    .then(response => {
-
-      return new Promise((resolve, reject) => {
-        AsyncStorage.multiSet(
-          [
-            ['apiToken', response.data.apiToken],
-            ['refreshToken', response.data.refreshToken]
-          ],
-          (err, result) => {
-            if (err) return reject(err);
-            resolve(result);
-          });
-      })
-
-
-      console.log(response);
-      return Promise.resolve(response)
-    })
-    .catch((error) => {
-      if (error.response.status == 403) {
-        return Promise.reject('login or password incorrect')
-      }
     });
 };
 
@@ -52,18 +37,31 @@ export const signUp = ({name, email, password}) => {
     return Promise.reject('enter password')
   }
 
-  return axios.post(`${apiUrl}/api/users`, {name, email, password})
-    .catch((error) => {
-      console.log(error);
-      return Promise.reject('something was wrong')
-    });
+  return firebase.auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+    const curUser = firebase.auth().currentUser;
+      return curUser
+        .sendEmailVerification({})
+        .then(()=>{
+          firebase.database().ref(`users/${curUser.uid}`)
+            .set({
+               name,
+               email
+            });
+        });
+    }).catch(error => {
+      return Promise.reject(error);
+    })
 };
 
 export const checkAuth = () => {
-  AsyncStorage.getItem('apiToken', (err, apiToken) => {
-    if(apiToken){
-      return Actions.list();
-    }
-    Actions.signIn();
-  })
+  AsyncStorage.clear();
+  Actions.signIn();
+  // AsyncStorage.getItem('apiToken', (err, apiToken) => {
+  //   if(apiToken){
+  //     return Actions.list();
+  //   }
+  //   Actions.signIn();
+  // })
 }
