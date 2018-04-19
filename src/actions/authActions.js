@@ -14,12 +14,20 @@ export const signIn = ({email, password}) => {
   }
 
   return firebase.auth()
-    .signInWithEmailAndPassword(email, password).then(()=>{
+    .signInWithEmailAndPassword(email, password).then(() => {
       const curUser = firebase.auth().currentUser;
-      const ref = firebase.database().ref(`users/${curUser.uid}`)
-        ref.on('value', function (snapshot) {
-          console.log(snapshot.val());
-        });
+      console.log(curUser);
+      console.log(`users/${curUser.uid}`);
+
+      const ref = firebase.database().ref(`users/${curUser.uid}`);
+
+      ref.on('value', function (snapshot) {
+        console.log(snapshot.val());
+      });
+      ref.once('value').then(function(snapshot) {
+       console.log('once',snapshot.val());
+        // ...
+      });
 
     });
 };
@@ -40,14 +48,14 @@ export const signUp = ({name, email, password}) => {
   return firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
-    const curUser = firebase.auth().currentUser;
+      const curUser = firebase.auth().currentUser;
       return curUser
         .sendEmailVerification({})
-        .then(()=>{
+        .then(() => {
           firebase.database().ref(`users/${curUser.uid}`)
             .set({
-               name,
-               email
+              name,
+              email
             });
         });
     }).catch(error => {
