@@ -33,11 +33,9 @@ class App extends Component {
       <View>
         <View style={styles.top}>
           <Image style={styles.logo}
-                 source={require('../themes/logo.png')}
+                 source={require('../themes/coffee-logo.png')}
           />
-          <Text style={styles.companyName}>
-            Awesome company
-          </Text>
+
         </View>
         <Input
           onChangeText={(email) => this.setState({email})}
@@ -45,7 +43,7 @@ class App extends Component {
           placeholder="email"
           keyboardType="email-address"
           icon="user"
-          additionalStyle={styles.inputWrapperTop}/>
+         />
 
         <Input
           onChangeText={(password) => this.setState({password})}
@@ -53,10 +51,13 @@ class App extends Component {
           secureTextEntry={true}
           placeholder="password"
           icon="key"
-          additionalStyle={styles.inputWrapperBottom}/>
+          />
         <View>
-          <TouchableOpacity onPress={Actions.signUp}>
-            <Text style={styles.signUpLink}>Sign Up</Text>
+          <View style={styles.navigation}>
+            <Button text="LOGIN" click={this.loginButtonPress.bind(this)}/>
+          </View>
+          <TouchableOpacity>
+            <Text style={styles.signUpLink}>reset password</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -73,7 +74,9 @@ class App extends Component {
           {this.state.loading ? <Loader/> : this.renderForm()}
         </ScrollView>
         <View style={styles.navigation}>
-          <Button text="LOGIN" click={this.loginButtonPress.bind(this)}/>
+          <TouchableOpacity onPress={Actions.signUp}>
+            <Text style={styles.signUpLink}>Sign Up</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
 

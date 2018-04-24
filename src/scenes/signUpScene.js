@@ -36,11 +36,9 @@ class App extends Component {
       <View>
         <View style={styles.top}>
           <Image style={styles.logo}
-                 source={require('../themes/logo.png')}
+                 source={require('../themes/coffee-logo.png')}
           />
-          <Text style={styles.companyName}>
-            Awesome company
-          </Text>
+
         </View>
         <Input onChangeText={(name) => this.setState({name})}
                value={this.state.name}
@@ -52,8 +50,11 @@ class App extends Component {
                value={this.state.password}
                placeholder="password" icon="key" additionalStyle={styles.inputWrapperBottom}/>
         <View>
-          <TouchableOpacity onPress={Actions.signIn}>
-            <Text style={styles.signUpLink}>Sign In</Text>
+          <View style={styles.navigation}>
+            <Button text="Sign up" click={this.loginButtonPress.bind(this)}/>
+          </View>
+          <TouchableOpacity>
+            <Text style={styles.signUpLink}>reset password</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -67,7 +68,9 @@ class App extends Component {
           {this.state.loading ? <Loader/> : this.renderForm()}
         </ScrollView>
         <View style={styles.navigation}>
-          <Button text="Sign up" click={this.loginButtonPress.bind(this)}/>
+          <TouchableOpacity onPress={Actions.signIn}>
+            <Text style={styles.signUpLink}>Sign In</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );

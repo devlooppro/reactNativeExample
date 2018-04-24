@@ -59,23 +59,23 @@ export const cafeListStyle = StyleSheet.create({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#5a5c6d"
+    backgroundColor: "#ecf0f1"
   },
   top: {
-    height: 200,
+    height: 250,
     alignItems: 'center',
     justifyContent: 'center'
   },
   navigation: {
-    height: 100,
+    height: 80,
     justifyContent: 'center'
   },
   content: {
     flex: 1,
   },
   logo: {
-    width: 50,
-    height: 67
+    width: 270,
+    height: 135
   },
   companyName: {
     fontWeight: "bold",
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 40,
-    backgroundColor: "#d35400",
-    padding: 25,
+    backgroundColor: "#c0392b",
+    padding: 15,
     marginLeft: 30,
     marginRight: 30,
   },
@@ -99,11 +99,12 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     height: 60,
-    backgroundColor: "#686b7e",
     marginLeft: 30,
     marginRight: 30,
     marginBottom: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderBottomColor:"#bdc3c7",
+    borderBottomWidth:1
   },
   inputWrapperTop: {
     borderTopLeftRadius: 15,
@@ -120,9 +121,6 @@ const styles = StyleSheet.create({
     width: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 25,
-    borderRightColor: "#5a5c6d",
-    borderRightWidth: 2,
     marginTop: 15,
     marginBottom: 15,
   },

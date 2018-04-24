@@ -35,11 +35,9 @@ class welcomeScene extends Component {
       <View style={styles.container}>
         <View style={styles.top}>
           <Image style={styles.logo}
-                 source={require('../themes/logo.png')}
+                 source={require('../themes/coffee-logo.png')}
           />
-          <Text style={styles.companyName}>
-            Awesome company
-          </Text>
+
         </View>
         <Loader/>
       </View>
