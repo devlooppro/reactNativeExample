@@ -1,10 +1,9 @@
-import axios from 'axios';
 import {AsyncStorage} from 'react-native'
 import {apiUrl} from "../config/constants"
 import {Actions} from 'react-native-router-flux';
 import firebase from "../config/firebase";
 
-export const signIn = ({email, password}) => {
+export const signIn = ({email, password}) => (dispatch) => {
 
   if (email == "") {
     return Promise.reject('enter email')
@@ -16,17 +15,10 @@ export const signIn = ({email, password}) => {
   return firebase.auth()
     .signInWithEmailAndPassword(email, password).then(() => {
       const curUser = firebase.auth().currentUser;
-      console.log(curUser);
-      console.log(`users/${curUser.uid}`);
-
       const ref = firebase.database().ref(`users/${curUser.uid}`);
 
-      ref.on('value', function (snapshot) {
-        console.log(snapshot.val());
-      });
-      ref.once('value').then(function(snapshot) {
-       console.log('once',snapshot.val());
-        // ...
+      return ref.once('value').then(function (snapshot) {
+        dispatch({type: 'auth_user_receive', payload: snapshot.val()});
       });
 
     });
@@ -72,4 +64,26 @@ export const checkAuth = () => {
   //   }
   //   Actions.signIn();
   // })
+}
+
+
+export const changeAuthData = (field, value) => (dispatch) => {
+  dispatch({
+    type: 'auth_change_data',
+    payload: {field, value}
+  })
+};
+export const updateUser = ({name, email, phone}) => (dispatch) => {
+
+  const curUser = firebase.auth().currentUser;
+  const ref = firebase.database().ref(`users/${curUser.uid}`);
+  ref.set({
+    name,
+    email,
+    phone
+  });
+  ref.on('value', function (snapshot) {
+    dispatch({type: 'auth_user_receive', payload: snapshot.val()});
+  });
+
 }

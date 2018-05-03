@@ -15,12 +15,7 @@
 //
 // store.dispatch(action);
 //
-const actions = {
-  split_text:'split_text',
-  add_symbol:'add_symbol',
-  refresh:'refresh',
-  back_sort:'back_sort',
-};
+
 
 import Redux, {createStore} from 'redux';
 
@@ -28,7 +23,7 @@ const initialState = [];
 
 const reducer = (currentState = initialState, action) => {
   switch (action.type) {
-    case actions.split_text:
+    case 'xsplit_text':
       return action.payload.split('');
     case 'add_symbol':
       return [...currentState, action.payload];
@@ -51,7 +46,7 @@ const store = createStore(reducer);
 console.log(store.getState());
 
 const action = {
-  type: action.split_text,
+  type: 'split_text',
   payload: 'abcd'
 };
 

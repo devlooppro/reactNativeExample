@@ -7,7 +7,7 @@ export const getCafes = (params) =>
     return response.data.map(cafe => {
       cafe.image = cafe.pictures[0] != undefined
         ? {url: `${apiUrl}/${cafe.pictures[0].url.replace('.jpg', '-100x100.jpg')}`}
-        : require('../themes/logo.png')
+        : require('../themes/cup.png')
       return cafe;
     });
   });

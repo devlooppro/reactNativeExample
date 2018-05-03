@@ -19,7 +19,8 @@ class listScene extends Component {
     this.setState({loading: true});
     getCafes({'_sort[rating]': 'ASC'})
       .then(cafes => {
-        this.setState({cafes})
+        this.setState({cafes});
+        console.log(cafes);
       })
       .catch(error => {
         console.log(error);
@@ -34,6 +35,7 @@ class listScene extends Component {
   }
 
   renderCafes() {
+    console.log(this.state.cafes);
     return this.state.cafes.map(cafe => (
         <TouchableOpacity onPress={this.itemPress.bind(this, cafe.id)} style={cafeListStyle.cafeWrap} key={cafe.id}>
           <View style={cafeListStyle.imageWrap}>
@@ -52,10 +54,10 @@ class listScene extends Component {
 
   render() {
     return (
-      <Layout>
+      <Layout title="Cafe around you" active="list">
         <ScrollView>
-          {this.state.loading ? <Loader/> : null}
-          {this.renderCafes()}
+          {this.state.loading ? <Loader/> : this.renderCafes()}
+
         </ScrollView>
       </Layout>
     )

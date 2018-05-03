@@ -7,17 +7,16 @@ import styles from "../themes/styles"
 
 
 const Layout = (props)=> (
-  <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={66}>
   <View style={ styles.container }>
-    <Header/>
+    <Header {...props}/>
     <View style={styles.content}>
 
       {props.children}
 
     </View>
-    <Nav/>
+    <Nav {...props}/>
   </View>
-  </KeyboardAvoidingView>
+
 )
 
 export default Layout;

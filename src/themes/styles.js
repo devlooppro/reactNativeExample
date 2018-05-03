@@ -4,55 +4,90 @@ var {height, width} = Dimensions.get('window');
 
 const defaultFontSize = 10;
 
-export const placeholderColor= "";
+const shadow = {
+  shadowColor: "#333",
+  shadowOffset: {width: 0, height: 3},
+  shadowOpacity: 0.6,
+}
+
 
 export const generalStyle = StyleSheet.create({
-  loading:{
-    marginTop:20,
-    alignSelf:'center',
-    fontSize:18,
-    color:"#fff"
+  loading: {
+    marginTop: 20,
+    alignSelf: 'center',
+    fontSize: 18,
+    color: "#fff"
+  }
+});
+
+export const profileStyle = StyleSheet.create({
+  avatarButton: {
+    margin: 15  ,
+    padding: 5,
+    backgroundColor:'#fff',
+    position:'relative',
+    ...shadow
+  },
+  avatar: {
+    borderWidth: 1,
+    borderColor: '#c0392b',
+    width: 100,
+    height: 100
+  },
+  avatarEditIcon:{
+    position:'absolute',
+    bottom: 7,
+    right: 7
+  },
+  editSettings:{
+    margin:10,
+
+    paddingTop:10,
+    paddingBottom:30,
+    backgroundColor: '#fff',
+    ...shadow
+  },
+  editSettingsButton:{
+    marginTop:15
   }
 });
 
 export const cafeItemStyle = StyleSheet.create({
-  mainImage:{
-    width:"100%",
-    height:250
+  mainImage: {
+    width: "100%",
+    height: 250
   },
-  title:{
-    color:"#ecf0f1",
-    fontSize:20
+  title: {
+    color: "#ecf0f1",
+    fontSize: 20
   },
-  titleLine:{
-    padding:5,
-    flexDirection:'row',
-    justifyContent:'space-between'
+  titleLine: {
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
-  rating:{
-    flexDirection:'row'
+  rating: {
+    flexDirection: 'row'
   }
 
 });
 export const cafeListStyle = StyleSheet.create({
-  cafeWrap:{
+  cafeWrap: {
     margin: 5,
-    padding:5,
-    backgroundColor:"#fff",
-    shadowColor: "#333",
-    shadowOffset: {width: 0,height: 3},
-    shadowOpacity: 0.6,
-    flexDirection:'row'
+    padding: 5,
+    backgroundColor: "#fff",
+    flexDirection: 'row',
+    ...shadow
   },
-  imageWrap:{
-    paddingRight:5
+  imageWrap: {
+    paddingRight: 5
   },
-  image:{
-    width:100,
-    height:100
+  image: {
+    width: 100,
+    height: 100
   },
-  title:{
-    fontSize:18
+  title: {
+    fontSize: 18
   }
 });
 
@@ -103,8 +138,8 @@ const styles = StyleSheet.create({
     marginRight: 30,
     marginBottom: 1,
     flexDirection: 'row',
-    borderBottomColor:"#bdc3c7",
-    borderBottomWidth:1
+    borderBottomColor: "#bdc3c7",
+    borderBottomWidth: 1
   },
   inputWrapperTop: {
     borderTopLeftRadius: 15,
@@ -115,7 +150,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15
   },
   textInput: {
-    flex:1
+    flex: 1
   },
   iconWrapper: {
     width: 60,
@@ -124,28 +159,28 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
   },
-  header:{
+  header: {
     paddingTop: 22,
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 60,
     shadowColor: "#333",
-    shadowOffset: {width: 0,height: 3},
+    shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.6,
-    backgroundColor:"#fff"
+    backgroundColor: "#fff"
   },
-  headerText:{
-    fontSize:20
+  headerText: {
+    fontSize: 20
   },
-  nav:{
-    borderTopWidth:1,
+  nav: {
+    borderTopWidth: 1,
     borderTopColor: "#eee",
-    padding:10,
-    backgroundColor:"#ddd",
-    flexDirection:'row',
+    padding: 10,
+    backgroundColor: "#ddd",
+    flexDirection: 'row',
     justifyContent: 'space-around'
   },
-  signUpLink:{
+  signUpLink: {
     alignSelf: 'center',
     color: '#3498db',
     fontSize: 18,

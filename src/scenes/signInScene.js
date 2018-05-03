@@ -1,27 +1,33 @@
 import {View, Text, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import React, {Component} from 'react';
 import {Actions} from 'react-native-router-flux';
+import {connect} from 'react-redux';
 import styles from "../themes/styles";
 import Input from "../components/input";
 import Button from "../components/button";
 import Loader from "../components/loader";
-import {signIn} from "../actions"
+import {signIn, changeAuthData} from "../actions"
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
       loading: false,
     }
+  }
+  componentWillMount(){
+    console.log('props',this.props);
+  }
+
+  changeAuthData(field,value){
+    this.props.changeAuthData(field,value);
   }
 
   loginButtonPress() {
     this.setState({loading: true});
 
-    signIn(this.state)
-      .then(Actions.list)
+    this.props.signIn(this.props.auth)
+      .then(Actions.profile)
       .catch(error=>{alert(error)})
       .finally(() => {
         this.setState({loading: false})
@@ -38,16 +44,16 @@ class App extends Component {
 
         </View>
         <Input
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}
+          onChangeText={(email) => this.changeAuthData('email',email)}
+          value={this.props.auth.email}
           placeholder="email"
           keyboardType="email-address"
           icon="user"
          />
 
         <Input
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password}
+          onChangeText={(password) => this.changeAuthData('password',password)}
+          value={this.props.auth.password}
           secureTextEntry={true}
           placeholder="password"
           icon="key"
@@ -84,4 +90,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(({auth})=>{ return {auth}}, { changeAuthData, signIn })(App);

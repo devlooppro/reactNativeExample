@@ -6,6 +6,7 @@ import singInScene from './scenes/signInScene';
 import signUpScene from './scenes/signUpScene';
 import listScene from './scenes/listScene';
 import itemScene from './scenes/itemScene';
+import profileScene from './scenes/profileScene';
 
 const Routers = () => <Router>
   <Scene key="root">
@@ -37,6 +38,12 @@ const Routers = () => <Router>
              component={itemScene}
              title=""
              hideNavBar
+      />
+      <Scene key="profile"
+             component={profileScene}
+             title=""
+             hideNavBar
+
       />
     </Stack>
 
