@@ -2,6 +2,7 @@ import {View, Text, Image} from "react-native";
 import React, {Component} from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from 'react-native-swiper';
+import {connect} from 'react-redux';
 
 import Layout from "../components/layout"
 import {getCafe} from '../actions/cafeActions';
@@ -10,21 +11,9 @@ import {cafeItemStyle} from "../themes/styles";
 
 class itemScene extends Component {
 
-  constructor() {
-    super();
-    this.state = {cafe: {}, loading: false}
-  }
 
   componentWillMount() {
-    this.setState({loading: true});
-
-    getCafe({id: this.props.id})
-      .then(cafe => {
-        this.setState({cafe});
-      })
-      .finally(() => {
-        this.setState({loading: false});
-      })
+    console.log(this.props.cafes);
   }
 
   renderRating(cafe) {
@@ -39,37 +28,28 @@ class itemScene extends Component {
   }
 
   renderCafe() {
-    const {cafe} = this.state;
+    const cafe = this.props.cafes.current;
     return <View>
       <Image style={cafeItemStyle.mainImage} source={cafe.image}/>
       <View style={cafeItemStyle.titleLine}>
         <Text style={cafeItemStyle.title}>{cafe.name}</Text>
         <View style={cafeItemStyle.rating}>{this.renderRating(cafe)}</View>
       </View>
-      <View>
-        <Swiper width={300} height={200} showsButtons={true}>
-          <View>
-            <Text>Hello Swiper</Text>
-          </View>
-          <View>
-            <Text>Beautiful</Text>
-          </View>
-          <View>
-            <Text>And simple</Text>
-          </View>
 
-        </Swiper>
-      </View>
     </View>
   }
 
   render() {
+    console.log(this.props.cafes);
     return (
       <Layout>
-        {this.state.loading ? <Loader/> : this.renderCafe()}
+        {this.props.cafes?this.renderCafe():<Loader/>}
       </Layout>
     )
   }
 }
 
-export default itemScene;
+const mapStateToProps = ({cafes}) => {
+  return {cafes}
+}
+export default connect(mapStateToProps)(itemScene);

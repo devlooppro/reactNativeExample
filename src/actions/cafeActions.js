@@ -1,16 +1,30 @@
 import axios from 'axios';
 
-import { apiUrl } from "../config/constants"
+import {apiUrl} from "../config/constants"
+import {cafesTypes} from '../reducers/types'
 
-export const getCafes = (params) =>
+export const getCafes = (params) => (dispatch) => {
+
+  dispatch({type: cafesTypes.loaderStart});
+
   axios.get(`${apiUrl}/api/cafes`).then(response => {
-    return response.data.map(cafe => {
+    const payload = response.data.map(cafe => {
       cafe.image = cafe.pictures[0] != undefined
         ? {url: `${apiUrl}/${cafe.pictures[0].url.replace('.jpg', '-100x100.jpg')}`}
         : require('../themes/cup.png')
       return cafe;
     });
-  });
+
+    dispatch({type: cafesTypes.listReceive, payload})
+
+  }).finally(() => {
+    dispatch({type: cafesTypes.loaderEnd});
+  })
+};
+
+export const setCafe = cafe => dispatch =>
+  dispatch({type: cafesTypes.itemReceive, payload: cafe});
+
 
 export const getCafe = (params) => {
   const {id} = params;
@@ -24,7 +38,7 @@ export const getCafe = (params) => {
         : require('../themes/logo.png')
 
       cafe.images = cafe.pictures.map(picture => {
-        return {url: `${apiUrl}/${picture.url}`, id:picture.id}
+        return {url: `${apiUrl}/${picture.url}`, id: picture.id}
       })
       return cafe;
     })

@@ -16,7 +16,7 @@ export const generalStyle = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'center',
     fontSize: 18,
-    color: "#fff"
+    color: "#000"
   }
 });
 
@@ -58,7 +58,7 @@ export const cafeItemStyle = StyleSheet.create({
     height: 250
   },
   title: {
-    color: "#ecf0f1",
+    color: "red",
     fontSize: 20
   },
   titleLine: {
