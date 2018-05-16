@@ -3,5 +3,6 @@ export const cafesTypes = {
   loaderEnd: 'cafes_loader_end',
   listReceive: 'cafes_list_receive',
   itemReceive: 'cafes_item_receive',
+  reviewEdit: 'cafes_review_edit',
 
 };

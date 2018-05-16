@@ -7,7 +7,7 @@ import Loader from "../components/loader";
 import Layout from "../components/layout"
 import {cafeListStyle} from "../themes/styles";
 import {getCafes, setCafe} from "../actions/cafeActions";
-
+import Toaster from '../components/toaster';
 class listScene extends Component {
 
 
@@ -15,15 +15,18 @@ class listScene extends Component {
    this.props.getCafes();
   }
 
-  itemPress(cafe) {
-    this.props.setCafe(cafe);
+
+  itemPress(id) {
+    this.props.setCafe(id);
     Actions.item();
   }
 
   renderCafes() {
 
-    return this.props.cafes.list.map(cafe => (
-        <TouchableOpacity onPress={this.itemPress.bind(this, cafe)} style={cafeListStyle.cafeWrap} key={cafe.id}>
+    return this.props.cafes.cafes.allIds.map(id => {
+      const cafe = this.props.cafes.cafes.byIds[id];
+      return (
+        <TouchableOpacity onPress={this.itemPress.bind(this, id)} style={cafeListStyle.cafeWrap} key={cafe.id}>
           <View style={cafeListStyle.imageWrap}>
             <Image style={cafeListStyle.image}
                    source={cafe.image}/>
@@ -35,13 +38,16 @@ class listScene extends Component {
 
         </TouchableOpacity>
       )
-    );
+    });
   }
 
   render() {
     return (
       <Layout title="Cafe around you" active="list">
         <ScrollView>
+          <TouchableOpacity onPress={()=>{ Toaster.showMessage('cool')}}>
+            <Text>press me</Text>
+          </TouchableOpacity>
           {this.props.cafes.loading ? <Loader/> : this.renderCafes()}
 
         </ScrollView>

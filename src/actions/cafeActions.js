@@ -26,6 +26,13 @@ export const setCafe = cafe => dispatch =>
   dispatch({type: cafesTypes.itemReceive, payload: cafe});
 
 
+export const editReview = (id,text)=> dispatch=>{
+  /*axios.put(`${apiUrl}/api/reviews/${id}`, {text}).then((review)=>{
+    dispatch({type: cafesTypes.reviewEdit, payload: review})
+  });*/
+  dispatch({type: cafesTypes.reviewEdit, payload: {text, id, averageRating: 4}});
+};
+
 export const getCafe = (params) => {
   const {id} = params;
 
