@@ -6,7 +6,7 @@ import styles from "../themes/styles";
 import Input from "../components/input";
 import Button from "../components/button";
 import Loader from "../components/loader";
-import {signIn, changeAuthData} from "../actions"
+import {signIn, changeAuthData, fbLogin} from "../actions"
 
 class App extends Component {
   constructor() {
@@ -21,6 +21,9 @@ class App extends Component {
 
   changeAuthData(field,value){
     this.props.changeAuthData(field,value);
+  }
+  FBLoginButtonPress(){
+    this.props.fbLogin();
   }
 
   loginButtonPress() {
@@ -61,6 +64,7 @@ class App extends Component {
         <View>
           <View style={styles.navigation}>
             <Button text="LOGIN" click={this.loginButtonPress.bind(this)}/>
+            <Button text="FB LOGIN" click={this.FBLoginButtonPress.bind(this)}/>
           </View>
           <TouchableOpacity>
             <Text style={styles.signUpLink}>reset password</Text>
@@ -90,4 +94,4 @@ class App extends Component {
   }
 }
 
-export default connect(({auth})=>{ return {auth}}, { changeAuthData, signIn })(App);
+export default connect(({auth})=>{ return {auth}}, { changeAuthData, signIn, fbLogin})(App);

@@ -26,13 +26,13 @@ const Routers = () => <Router>
              component={welcomeScene}
              title=""
              hideNavBar
-
+             initial
       />
       <Scene key="list"
              component={listScene}
              title=""
              hideNavBar
-             initial
+
 
       />
       <Scene key="item"

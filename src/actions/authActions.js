@@ -3,6 +3,11 @@ import {apiUrl} from "../config/constants"
 import {Actions} from 'react-native-router-flux';
 import firebase from "../config/firebase";
 
+import {
+  LoginManager, AccessToken, GraphRequest,
+  GraphRequestManager
+} from 'react-native-fbsdk';
+
 export const signIn = ({email, password}) => (dispatch) => {
 
   if (email == "") {
@@ -86,4 +91,36 @@ export const updateUser = ({name, email, phone}) => (dispatch) => {
     dispatch({type: 'auth_user_receive', payload: snapshot.val()});
   });
 
+}
+
+
+export const fbLogin = () => (dispatch) => {
+
+  LoginManager.logInWithReadPermissions(['public_profile','email']).then(
+    function (result) {
+      if (result.isCancelled) {
+        console.log('Login cancelled');
+      } else {
+        console.log('Login success with permissions: '
+          , result);
+
+        const infoRequest = new GraphRequest(
+          '/me/friends',
+          null,
+          (error: ?Object, result: ?Object) => {
+            if (error) {
+              console.log('Error fetching data: ', error);
+            } else {
+              console.log('Success fetching data: ', result);
+            }
+          },
+        );
+// Start the graph request.
+        new GraphRequestManager().addRequest(infoRequest).start();
+      }
+    },
+    function (error) {
+      console.log('Login fail with error: ', error);
+    }
+  );
 }
